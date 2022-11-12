@@ -1,0 +1,10 @@
+.profileInfo__title{
+    grid-area: title;
+    font-weight: 500;
+    font-size: 2em;
+    line-height: 114%;
+    margin: 0;
+    max-width: 294px;
+    align-self: center;
+
+}

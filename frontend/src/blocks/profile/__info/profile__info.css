@@ -1,0 +1,22 @@
+.profile__info{
+    margin: 22px 0 25px 30px;
+    grid-area: info;
+    display: grid;
+    grid-template-columns: 8fr 1fr;
+    grid-template-areas:
+    "title  edit-button"
+    "subtitle  .";
+    max-width: 336px;
+}
+@media screen and (max-width: 767px) {
+    .profile__info{
+        grid-template-areas:
+        "title  edit-button"
+        "subtitle  subtitle";
+        width: 282px;
+        margin: 26px auto 36px;
+        grid-template-columns: 8fr 2fr;
+        text-align: center;
+        justify-self: center;
+    }
+}
