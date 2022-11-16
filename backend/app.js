@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const { errors } = require('celebrate');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -9,6 +10,7 @@ const routesUser = require('./routes/users');
 const routesCard = require('./routes/cards');
 const { errorHandler } = require('./errors/handler');
 const NotFound = require('./errors/notfound');
+
 require('dotenv').config();
 const {
   login, register,
@@ -18,6 +20,9 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const PORT = process.env.PORT || 3000;
 const app = express();
 
+app.use(cors({
+  origin: ['http://localhost:3000', 'mestoandyamakasi.nomoredomains.icu', 'mestoyamakasib.nomoredo.nomoredomains.icu'],
+}));
 app.use(requestLogger);
 app.use(cookieParser());
 app.use(bodyParser.json());
