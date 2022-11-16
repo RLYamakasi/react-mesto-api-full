@@ -9,13 +9,16 @@ const routesUser = require('./routes/users');
 const routesCard = require('./routes/cards');
 const { errorHandler } = require('./errors/handler');
 const NotFound = require('./errors/notfound');
+require('dotenv').config();
 const {
   login, register,
 } = require('./controllers/users');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
 
+app.use(requestLogger);
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,7 +26,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 mongoose.connect('mongodb://localhost:27017/mestodb ', (err) => {
   if (!err) console.log('сервер запущен');
   else console.log('ошибка');
-
+  app.get('/crash-test', () => {
+    setTimeout(() => {
+      throw new Error('Сервер сейчас упадёт');
+    }, 0);
+  });
   app.post('/signin', userValidateLogin, login);
   app.post('/signup', userValidateRegistration, register);
   app.use('/', auth, routesUser);
@@ -31,6 +38,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb ', (err) => {
   app.use(auth, (req, res, next) => {
     next(new NotFound('Маршрут не найден'));
   });
+  app.use(errorLogger);
   app.use(errors());
   app.use('/', errorHandler);
 });
