@@ -1,5 +1,4 @@
 const express = require('express');
-const cors = require('cors');
 const { errors } = require('celebrate');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -10,6 +9,7 @@ const routesUser = require('./routes/users');
 const routesCard = require('./routes/cards');
 const { errorHandler } = require('./errors/handler');
 const NotFound = require('./errors/notfound');
+const { corsCheck } = require('./middlewares/cors');
 
 const {
   login, register,
@@ -19,9 +19,10 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-app.use(cors({
-  origin: ['http://localhost:3000', 'http://mestoandyamakasi.nomoredomains.icu', 'https://mestoandyamakasi.nomoredomains.icu', 'http://mestoyamakasib.nomoredo.nomoredomains.icu', 'https://mestoyamakasib.nomoredo.nomoredomains.icu'],
-}));
+// app.use(cors({
+//   origin: ['http://localhost:3000', 'http://mestoandyamakasi.nomoredomains.icu', 'https://mestoandyamakasi.nomoredomains.icu', 'http://mestoyamakasib.nomoredo.nomoredomains.icu', 'https://mestoyamakasib.nomoredo.nomoredomains.icu'],
+// }));
+app.use(corsCheck);
 app.use(requestLogger);
 app.use(cookieParser());
 app.use(bodyParser.json());
