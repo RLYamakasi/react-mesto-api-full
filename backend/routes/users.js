@@ -7,12 +7,12 @@ const { ValidateNameAndAbout, ValidateAvatar } = require('../Validations/user');
 
 module.exports = router;
 
-router.get('/api/users', findUsers);
-router.get('/api/users/me', aboutMe);
-router.get('/api/users/:id', celebrate({
+router.get('/users', findUsers);
+router.get('/users/me', aboutMe);
+router.get('/users/:id', celebrate({
   [Segments.PARAMS]: Joi.object().keys({
     id: Joi.string().length(24).hex().required(),
   }),
 }), getUserById);
-router.patch('/api/users/me', ValidateNameAndAbout, patchUserInfo);
-router.patch('/api/users/me/avatar', ValidateAvatar, patchUserAvatar);
+router.patch('/users/me', ValidateNameAndAbout, patchUserInfo);
+router.patch('/users/me/avatar', ValidateAvatar, patchUserAvatar);
