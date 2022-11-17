@@ -9,7 +9,7 @@ const routesUser = require('./routes/users');
 const routesCard = require('./routes/cards');
 const { errorHandler } = require('./errors/handler');
 const NotFound = require('./errors/notfound');
-const corsCheck = require('./middlewares/cors');
+const { corsCheck } = require('./middlewares/cors');
 
 const {
   login, register,
