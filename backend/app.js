@@ -18,8 +18,6 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
-
-app.use(corsCheck);
 app.use(requestLogger);
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -33,10 +31,10 @@ mongoose.connect('mongodb://localhost:27017/mestodb ', (err) => {
       throw new Error('Сервер сейчас упадёт');
     }, 0);
   });
-  app.post('/signin', userValidateLogin, login);
-  app.post('/signup', userValidateRegistration, register);
-  app.use('/', auth, routesUser);
-  app.use('/', auth, routesCard);
+  app.post('/signin', corsCheck, userValidateLogin, login);
+  app.post('/signup', corsCheck, userValidateRegistration, register);
+  app.use('/', corsCheck, auth, routesUser);
+  app.use('/', corsCheck, auth, routesCard);
   app.use(auth, (req, res, next) => {
     next(new NotFound('Маршрут не найден'));
   });
