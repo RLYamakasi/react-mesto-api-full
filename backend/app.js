@@ -20,7 +20,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(cors({
-  origin: ['http://localhost:3000', 'mestoandyamakasi.nomoredomains.icu', 'mestoyamakasib.nomoredo.nomoredomains.icu'],
+  origin: ['http://localhost:3000', 'http://mestoandyamakasi.nomoredomains.icu', 'https://mestoandyamakasi.nomoredomains.icu', 'http://mestoyamakasib.nomoredo.nomoredomains.icu', 'https://mestoyamakasib.nomoredo.nomoredomains.icu'],
 }));
 app.use(requestLogger);
 app.use(cookieParser());
