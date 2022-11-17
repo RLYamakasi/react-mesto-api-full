@@ -11,7 +11,6 @@ const routesCard = require('./routes/cards');
 const { errorHandler } = require('./errors/handler');
 const NotFound = require('./errors/notfound');
 
-require('dotenv').config();
 const {
   login, register,
 } = require('./controllers/users');
