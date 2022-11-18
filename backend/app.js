@@ -16,7 +16,7 @@ const {
 } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(corsCheck);
 app.use(requestLogger);
