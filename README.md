@@ -5,3 +5,4 @@ ip 51.250.10.142
 frontend mestoandyamakasi.nomoredomains.icu
 backend mestoyamakasib.nomoredo.nomoredomains.icu
  
+ https://github.com/RLYamakasi/react-mesto-api-full репозиторий
