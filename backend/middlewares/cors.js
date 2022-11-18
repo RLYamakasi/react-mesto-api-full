@@ -14,6 +14,7 @@ module.exports.corsCheck = (req, res, next) => {
   }
 
   if (method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.header('Access-Control-Allow-Methods', '*');
     res.header('Access-Control-Allow-Methods', reqHeaders);
     return res.end();
