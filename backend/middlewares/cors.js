@@ -11,7 +11,7 @@ module.exports.corsCheck = (req, res, next) => {
   if (allowedCors.includes(origin)) {
     res.header('Access-Control-Allow-Origin', origin);
     res.header('Access-Control-Allow-Credentials', 'true');
-    res.header('Set-Cookie', 'SameSite=None');
+    res.header('Access-Control-Allow-Origin', '*');
   }
 
   if (method === 'OPTIONS') {
