@@ -8,13 +8,13 @@ const ErrorLogin = require('../errors/errorlogin');
 
 module.exports.findUsers = (req, res, next) => {
   Users.find({})
-    .then((user) => res.send({ user }))
+    .then((user) => res.send(user))
     .catch(next);
 };
 
 module.exports.aboutMe = (req, res, next) => {
   Users.findOne({ _id: req.user._id })
-    .then((user) => res.send({ user }))
+    .then((user) => res.send(user))
     .catch(next);
 };
 
@@ -75,7 +75,7 @@ module.exports.getUserById = (req, res, next) => {
       if (!user) {
         return next(new NotFound('Пользователь не найден'));
       }
-      return res.status(200).send({ user });
+      return res.status(200).send(user);
     })
     .catch(next);
 };

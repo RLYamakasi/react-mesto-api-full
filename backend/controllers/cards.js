@@ -5,7 +5,7 @@ const ForbidenError = require('../errors/forbiddenerror');
 
 module.exports.findCards = (req, res, next) => {
   Cards.find({})
-    .then((card) => res.send({ card }))
+    .then((card) => res.send(card))
     .catch(next);
 };
 
@@ -17,7 +17,7 @@ module.exports.postCard = (req, res, next) => {
   });
   card
     .save()
-    .then((cards) => res.send({ cards }))
+    .then((cards) => res.send(cards))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError('Что-то пошло не так'));
@@ -37,7 +37,7 @@ module.exports.deleteCard = (req, res, next) => {
         return next(new ForbidenError('Нельзя удалять чужую карточку'));
       }
       return cards.remove()
-        .then(() => res.status(200).send({ cards }));
+        .then(() => res.status(200).send(cards));
     })
     .catch(next);
 };
@@ -55,7 +55,7 @@ module.exports.setLikeToCard = (req, res, next) => {
       if (!cards) {
         return next(new NotFound('карточка не найдена'));
       }
-      return res.status(200).send({ cards });
+      return res.status(200).send(cards);
     })
     .catch(next);
 };
@@ -73,7 +73,7 @@ module.exports.deleteLikeFromCard = (req, res, next) => {
       if (!cards) {
         return next(new NotFound('карточка не найдена'));
       }
-      return res.status(200).send({ cards });
+      return res.status(200).send(cards);
     })
     .catch(next);
 };
