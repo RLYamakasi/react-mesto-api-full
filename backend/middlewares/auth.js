@@ -1,13 +1,10 @@
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
-
-const { JWT_SECRET } = process.env;
 const ErrorLogin = require('../errors/errorlogin');
 
 module.exports.auth = (req, res, next) => {
-  const token = req.headers.authorization;
+  const cookie = req.cookies.token;
   try {
-    const tokenCheck = jwt.verify(token, JWT_SECRET);
+    const tokenCheck = jwt.verify(cookie, 'some-secret-key');
     if (!tokenCheck) {
       return next(new ErrorLogin('Что-то пошло не так'));
     }
@@ -15,14 +12,5 @@ module.exports.auth = (req, res, next) => {
     return next();
   } catch (err) {
     return next(new ErrorLogin('Что-то пошло не так'));
-  }
-};
-
-module.exports.signToken = (id) => {
-  try {
-    const token = jwt.sign({ _id: id }, JWT_SECRET);
-    return token;
-  } catch (err) {
-    return false;
   }
 };

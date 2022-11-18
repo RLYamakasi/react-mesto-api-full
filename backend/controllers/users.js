@@ -1,10 +1,10 @@
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const Users = require('../models/users');
 const BadRequestError = require('../errors/badreq');
 const AuthError = require('../errors/autherror');
 const NotFound = require('../errors/notfound');
 const ErrorLogin = require('../errors/errorlogin');
-const { signToken } = require('../middlewares/auth');
 
 module.exports.findUsers = (req, res, next) => {
   Users.find({})
@@ -30,11 +30,11 @@ module.exports.login = (req, res, next) => {
           if (!matched) {
             return next(new ErrorLogin('Неправильные почта или пароль'));
           }
-          const result = signToken(user._id);
-          if (!result) {
-            return next(new ErrorLogin('Ошибка создания токена'));
-          }
-          return res.status(200).send({ data: result });
+          const token = jwt.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' });
+          res.cookie('token', token, {
+            httpOnly: true,
+          });
+          return res.send({ token });
         });
     })
     .catch(next);
