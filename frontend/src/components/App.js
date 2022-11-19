@@ -55,8 +55,8 @@ const App = () => {
   }
 
   function handleCardLike(card, context) {
-    const isLiked = card.likes.some((i) => i._id === context._id);
-
+    const isLiked = card.likes.some((i) => i === context._id);
+    
     return api
       .changeLikeCardStatus(card._id, isLiked)
       .then((currentCard) => {
@@ -80,18 +80,18 @@ const App = () => {
       });
   }
 
-  useEffect(() => {
-    tokenCheck();
-    // Promise.all([api.getProfile(), api.getInitialCards()])
-    //   .then(([infoResult, cardsResult]) => {
-    //     setСurrentUser(infoResult);
-    //     console.log(infoResult)
-    //     setCards(cardsResult.reverse());
-    //   })
-    //   .catch((err) => {
-    //     console.log(`ошибка ${err}`);
-    //   });
-  }, []);
+  // useEffect(() => {
+  //   tokenCheck();
+  //   // Promise.all([api.getProfile(), api.getInitialCards()])
+  //   //   .then(([infoResult, cardsResult]) => {
+  //   //     setСurrentUser(infoResult);
+  //   //     console.log(infoResult)
+  //   //     setCards(cardsResult.reverse());
+  //   //   })
+  //   //   .catch((err) => {
+  //   //     console.log(`ошибка ${err}`);
+  //   //   });
+  // }, []);
 
   function handleUpdateUser(name, about) {
     api

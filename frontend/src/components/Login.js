@@ -35,14 +35,12 @@ class Login extends React.Component {
       .login(this.state.password, this.state.email)
       .then((data) => {
         if (data) {
-          // localStorage.setItem("jwt", data.token);
           this.props.setLogin(true);
           this.props.history.push("/main");
           this.props.setEmail(this.state.email);
           Promise.all([api.getProfile(), api.getInitialCards()])
             .then(([infoResult, cardsResult]) => {
             this.props.setСurrentUser(infoResult);
-            console.log(infoResult)
             this.props.setCards(cardsResult.reverse());
       })
       .catch((err) => {
