@@ -119,3 +119,7 @@ module.exports.patchUserAvatar = (req, res, next) => {
       }
     });
 };
+
+module.exports.cookieClear = (req, res) => {
+  res.clearCookie('token');
+};

@@ -32,6 +32,9 @@ mongoose.connect('mongodb://localhost:27017/mestodb ', (err) => {
       throw new Error('Сервер сейчас упадёт');
     }, 0);
   });
+  app.post('/logout', (req, res) => {
+    res.clearCookie('token');
+  });
   app.post('/signin', userValidateLogin, login);
   app.post('/signup', userValidateRegistration, register);
   app.use('/', auth, routesUser);
