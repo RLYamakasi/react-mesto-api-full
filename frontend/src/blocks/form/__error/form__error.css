@@ -1,0 +1,5 @@
+.form__error{
+    visibility: hidden;
+    font-size: 0.75em;
+    line-height: 15px;
+}

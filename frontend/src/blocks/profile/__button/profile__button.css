@@ -1,0 +1,25 @@
+.profile__button{
+    display: flex;
+    grid-area: edit-button;
+    width: 24px;
+    height: 24px;
+    justify-self: flex-end;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+    cursor:pointer;
+    border:1px solid #FFFFFF;
+    background: none;
+   
+}
+.profile__button:hover{
+    opacity: 0.6;
+}
+@media screen and (max-width:767px) {
+    .profile__button{
+        width: 18px;
+        height: 18px;
+        justify-self: center;
+        align-self: flex-start;
+    }
+}

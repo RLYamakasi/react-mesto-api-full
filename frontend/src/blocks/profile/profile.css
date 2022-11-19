@@ -1,0 +1,25 @@
+.profile{
+    display: grid;
+    grid-template-areas: 
+    "avatar info add-button";
+    grid-template-columns: 120px 4fr 2fr;
+    max-width: 880px;
+    margin: 40px auto 0;
+}
+
+
+@media screen and (max-width:1200px){
+    .profile{
+        max-width: 90%; 
+    }
+}
+@media screen and (max-width: 767px) {
+    .profile{
+        grid-template-columns: 100%;
+        grid-template-rows: 120px 116px 50px;
+        grid-template-areas: 
+        "avatar"
+         "info" 
+         "add-button";
+    }
+}
