@@ -22,7 +22,7 @@ const Card = ({ onCardDelete, onCardLike, card, onCardClick, setName }) => {
             <button
               onClick={() => onCardLike(obj, userContext)}
               className={
-                obj.likes.some((i) => obj.owner === userContext._id)
+                obj.likes.some((i) => i === userContext._id)
                   ? `element__button  element__button_active`
                   : `element__button`
               }
