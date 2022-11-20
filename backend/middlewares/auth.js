@@ -1,13 +1,13 @@
 require('dotenv').config();
 
+const { NODE_ENV = 'development', JWT_SECRET = 'some-defaut-value' } = process.env;
 const jwt = require('jsonwebtoken');
 const ErrorLogin = require('../errors/errorlogin');
 
 module.exports.auth = (req, res, next) => {
   const cookie = req.cookies.token;
-  const { NODE_ENV, JWT_SECRET } = process.env;
   try {
-    const tokenCheck = jwt.verify(cookie, NODE_ENV === 'devolepment' ? JWT_SECRET : 'supersecretkey');
+    const tokenCheck = jwt.verify(cookie, NODE_ENV === 'production' ? JWT_SECRET : 'supersecretkey');
     if (!tokenCheck) {
       return next(new ErrorLogin('Что-то пошло не так'));
     }
