@@ -7,8 +7,6 @@ const AuthError = require('../errors/autherror');
 const NotFound = require('../errors/notfound');
 const ErrorLogin = require('../errors/errorlogin');
 
-console.log(process.env.NODE_ENV);
-
 module.exports.findUsers = (req, res, next) => {
   Users.find({})
     .then((user) => res.send(user))
