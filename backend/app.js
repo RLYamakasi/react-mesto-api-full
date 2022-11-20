@@ -34,7 +34,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb ', (err) => {
   });
   app.post('/logout', (req, res) => {
     res
-      .clearCookie('token').status(200).end();
+      .clearCookie('token').status(200).send({ message: 'Вы успешно вышли из системы!' });;
   });
   app.post('/signin', userValidateLogin, login);
   app.post('/signup', userValidateRegistration, register);
