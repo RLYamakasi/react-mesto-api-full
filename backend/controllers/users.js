@@ -1,3 +1,4 @@
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const Users = require('../models/users');
@@ -5,6 +6,8 @@ const BadRequestError = require('../errors/badreq');
 const AuthError = require('../errors/autherror');
 const NotFound = require('../errors/notfound');
 const ErrorLogin = require('../errors/errorlogin');
+
+console.log(process.env.NODE_ENV);
 
 module.exports.findUsers = (req, res, next) => {
   Users.find({})
@@ -30,7 +33,7 @@ module.exports.login = (req, res, next) => {
           if (!matched) {
             return next(new ErrorLogin('Неправильные почта или пароль'));
           }
-          const token = jwt.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' });
+          const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
           res.cookie('token', token, {
             sameSite: false,
             httpOnly: true,
@@ -118,8 +121,4 @@ module.exports.patchUserAvatar = (req, res, next) => {
         next(err);
       }
     });
-};
-
-module.exports.cookieClear = (req, res) => {
-  res.clearCookie('token');
 };

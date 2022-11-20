@@ -1,12 +1,13 @@
 const { celebrate, Joi, Segments } = require('celebrate');
 const router = require('express').Router();
 const {
-  aboutMe, getUserById, patchUserInfo, patchUserAvatar, findUsers,
+  aboutMe, getUserById, patchUserInfo, patchUserAvatar, findUsers, logout,
 } = require('../controllers/users');
 const { ValidateNameAndAbout, ValidateAvatar } = require('../Validations/user');
 
 module.exports = router;
 
+console.log(logout);
 router.get('/users', findUsers);
 router.get('/users/me', aboutMe);
 router.get('/users/:id', celebrate({

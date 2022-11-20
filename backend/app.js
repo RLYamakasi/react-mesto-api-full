@@ -33,7 +33,8 @@ mongoose.connect('mongodb://localhost:27017/mestodb ', (err) => {
     }, 0);
   });
   app.post('/logout', (req, res) => {
-    res.clearCookie('token');
+    res
+      .clearCookie('token').status(200).end();
   });
   app.post('/signin', userValidateLogin, login);
   app.post('/signup', userValidateRegistration, register);

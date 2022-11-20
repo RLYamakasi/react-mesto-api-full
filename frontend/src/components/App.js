@@ -28,30 +28,20 @@ const App = () => {
 
   let history = useHistory();
 
-  function tokenCheck() {
-    const jwt = localStorage.getItem("jwt");
-    if (jwt) {
-      api
-        .getContent(jwt)
-        .then((res) => {
-          if (res) {
-            setEmail(res.user.email);
-            setLoggedIn(true);
-            history.push("/main");
-          }
-        })
-        .catch((err) => {
-          console.log(`ошибка ${err}`);
-        });
-    }
+  function cookieCheck(email) {
+    history.push("/main");
+    setEmail(email);
+    setLoggedIn(true);
   }
 
   function signOut() {
     api.clearCookie()
-      .then((res)=>console.log(res))
-    setLoggedIn(false);
-    history.push("/sign-in");
-    setEmail("");
+      .then((res)=>{console.log(res)})
+      .catch((err)=>console.log(err))
+      setLoggedIn(false);
+        history.push("/sign-in");
+        setEmail("");
+    
   }
 
   function handleCardLike(card, context) {
@@ -80,18 +70,17 @@ const App = () => {
       });
   }
 
-  // useEffect(() => {
-  //   tokenCheck();
-  //   // Promise.all([api.getProfile(), api.getInitialCards()])
-  //   //   .then(([infoResult, cardsResult]) => {
-  //   //     setСurrentUser(infoResult);
-  //   //     console.log(infoResult)
-  //   //     setCards(cardsResult.reverse());
-  //   //   })
-  //   //   .catch((err) => {
-  //   //     console.log(`ошибка ${err}`);
-  //   //   });
-  // }, []);
+  useEffect(() => {
+    Promise.all([api.getProfile(), api.getInitialCards()])
+      .then(([infoResult, cardsResult]) => {
+        cookieCheck(infoResult.email)
+        setСurrentUser(infoResult);
+        setCards(cardsResult.reverse());
+      })
+      .catch((err) => {
+        console.log(`Вы неавторизованы ${err}`);
+      });
+  }, []);
 
   function handleUpdateUser(name, about) {
     api
